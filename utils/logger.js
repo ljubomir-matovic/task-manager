@@ -5,7 +5,7 @@ class Logger{
     #getClassName() {
         if (this.className == "" || this.className == undefined || this.className == null)
             return "";
-        return `[${this.className}]`;
+        return ` [${this.className}]`;
     }
     async print(color, type, args) {
         const chalk = (await import('chalk')).default;
@@ -14,7 +14,7 @@ class Logger{
         let sign = zone < 0;
         zone = ((sign) ? -zone : zone).toString().padStart(2,'0');
         zone = (sign) ? `+${zone}` : `-${zone}`;
-        let s = chalk[color](`[Express] `)+chalk.white(date.toLocaleString('sr-RS') + ` GMT${zone}`)+' '+ chalk[color](type) + chalk.yellow(this.#getClassName()+" ") + args.join(' ');
+        let s = chalk[color](`[Express] `)+chalk.white(date.toLocaleString('sr-RS') + ` GMT${zone}`)+' '+ chalk[color](type) + chalk.bold.hex("#1e0578") (this.#getClassName()+" ") + args.join(' ');
         console.log(s);
     }
     log(...args) {
@@ -22,6 +22,9 @@ class Logger{
     }
     error(...args) {
         this.print("red", "ERR", args);
+    }
+    warning(...args) {
+        this.print("yellow", "WARN", args);
     }
 }
 

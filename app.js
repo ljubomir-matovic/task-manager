@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 
 const { connect } = require('./db');
@@ -11,6 +12,7 @@ connect();
 app.disable('x-powered-by');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 //Routes
 
