@@ -14,6 +14,7 @@ app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
+app.use(require('./middleware/notFound'))
 //Routes
 
 app.use('/api/v1/tasks', require('./routes/tasks.router'));
