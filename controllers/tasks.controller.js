@@ -7,25 +7,32 @@ class TasksController{
         res.status(HttpStatus.OK).send({
             tasks: await Task.find().exec()
         });
+        TasksController.logger.log('Tasks listed');
     }
     static async getTask(req, res) {
         let id = req.params.id;
         try {
             let task = await Task.findById({ _id: id }).exec();
-            if (task == null)
+            if (task == null) {
+                TasksController.logger.warning(`Not found task with id ${id}`);
                 return res.status(HttpStatus.NOT_FOUND).send('Not found');
+            }
             res.status(HttpStatus.OK).send({
                 task
             });
+            TasksController.logger.log('Task found');
         }
         catch (e) {
+            TasksController.logger.warning(`Not found task with id ${id}`);
             res.status(HttpStatus.NOT_FOUND).send('Not found');
         }
     }
     static async createTask(req, res) {
         let { name } = req.body;
-        if (!name)
+        if (!name) {
+            TasksController.logger.error('Bad request');
             return res.status(HttpStatus.BAD_REQUEST).send('Bad request');
+        }
         Task.create({ name });
         res.status(HttpStatus.CREATED).send();
     }

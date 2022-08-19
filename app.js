@@ -13,11 +13,11 @@ app.disable('x-powered-by');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-
-app.use(require('./middleware/notFound'))
 //Routes
 
 app.use('/api/v1/tasks', require('./routes/tasks.router'));
+
+app.use(require('./middleware/notFound'));
 let logger = new Logger();
 const port = Number(process.env.PORT) || 3000;
 app.listen(port, () => logger.log(`Server listening on port ${port}...`));

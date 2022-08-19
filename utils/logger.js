@@ -5,7 +5,7 @@ class Logger{
     #getClassName() {
         if (this.className == "" || this.className == undefined || this.className == null)
             return "";
-        return ` [${this.className}]`;
+        return ` [ ${this.className} ]`;
     }
     async print(color, type, args) {
         const chalk = (await import('chalk')).default;
